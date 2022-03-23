@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int main(){
+    char operacao;
+    int n, val, cont = 0;
+    float soma = 0, media = 0;
+
+    scanf("%c\n", &operacao);
+    scanf("%d\n", &n);
+
+    int mat[n][n];
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            scanf("%d\n", &val);
+            mat[i][j] = val;
+        }
+    }
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            if(j == i){
+                soma += mat[i][j];
+                cont++;
+            }
+        }
+    }
+
+    if(operacao == 'S'){
+        printf("%.1f\n", soma);
+    }else if(operacao == 'M'){
+        media = soma / cont;
+        printf("%.1f\n", media);
+    }
+
+    return 0;
+}
