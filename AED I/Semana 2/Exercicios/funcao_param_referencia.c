@@ -9,6 +9,6 @@ void funcao(int a, int b, int *resultado) {
     		resultadoParenteses += i*j+10;
     	}
     	*resultado += 5*i*resultadoParenteses;
-    	resultadoParenteses
+    	resultadoParenteses = 0;
     }
 }
