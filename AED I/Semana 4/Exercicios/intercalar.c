@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-//#include "inverter.h"
+//#include "intercalar.h"
 
 typedef struct LinkedNode LinkedNode;
 struct LinkedNode {
@@ -8,45 +8,33 @@ struct LinkedNode {
    LinkedNode *next;
 };
 
-LinkedNode* inverter(LinkedNode *inicio) {
-    if(inicio == NULL){
-        return inicio;
-    }else{
-        if(inicio != NULL){
+LinkedNode* intercalar_listas(LinkedNode *inicio1, LinkedNode *inicio2) {
+    LinkedNode *atual = inicio1;
 
-            if(inicio->next->next != NULL){
-                inicio->next = inverter(inicio->next);
+
+    // NÃO ALOCAR NÓS mas usar auxliar pode rs
+
+    // Ia até o final da lista 1 (se não for vazia né)
+    // E add a referencia do primeiro ponto da lista 2
+    
+
+    while(atual != NULL){
+        LinkedNode *proximo = atual->next;
+
+        while(proximo != NULL){
+            if(atual->data > proximo->data){
+
+                int tempData = atual->data;
+                atual->data = proximo->data;
+                proximo->data = tempData;
+
             }
-
-            if(inicio->next->next == NULL){
-                inicio->next->next = inicio;
-                inicio->next = NULL;
-            }
-
-            return inicio;
-        }else{
-            return inicio;
+            proximo = proximo->next;
         }
-    }
-}
-
-LinkedNode* inverter_lista(LinkedNode *inicio) {
-    if(inicio != NULL && inicio->next != NULL){
-        LinkedNode *atual = inicio;
-        LinkedNode *auxiliar = NULL;
-
-        while(atual->next != NULL){
-            atual = atual->next;
-        }
-
-        inicio = inverter(inicio);
-
-        auxiliar = atual;
-        atual = inicio;
-        inicio = auxiliar;
+        atual = atual->next;
     }
 
-    return inicio;
+    return inicio1;
 }
 
 void imprimir(LinkedNode *inicio) {
@@ -71,23 +59,25 @@ int main() {
     cinco->data = 55;
     cinco->next = NULL;
 */
-    quatro->data = 44;
+    quatro->data = 22;
     quatro->next = NULL;
 
     tres->data = 33;
     tres->next = quatro;
 
-    dois->data = 22;
+    dois->data = 44;
     dois->next = tres;
 
     um->data = 11;
     um->next = dois;
 
+    LinkedNode *inicio2 = NULL;
+
     imprimir(um);
 
     LinkedNode *inicio = NULL;
 
-    inicio = inverter_lista(um);
+    inicio = intercalar_listas(um, inicio2);
 
     imprimir(inicio);
 
