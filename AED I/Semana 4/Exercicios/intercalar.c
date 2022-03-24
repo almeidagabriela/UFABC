@@ -9,32 +9,40 @@ struct LinkedNode {
 };
 
 LinkedNode* intercalar_listas(LinkedNode *inicio1, LinkedNode *inicio2) {
-    LinkedNode *atual = inicio1;
+    if(inicio1 != NULL && inicio2 != NULL){
+        LinkedNode *atual = inicio1;
+        LinkedNode *ultimo = inicio1;
 
-
-    // NÃO ALOCAR NÓS mas usar auxliar pode rs
-
-    // Ia até o final da lista 1 (se não for vazia né)
-    // E add a referencia do primeiro ponto da lista 2
-    
-
-    while(atual != NULL){
-        LinkedNode *proximo = atual->next;
-
-        while(proximo != NULL){
-            if(atual->data > proximo->data){
-
-                int tempData = atual->data;
-                atual->data = proximo->data;
-                proximo->data = tempData;
-
-            }
-            proximo = proximo->next;
+        while(ultimo->next != NULL){
+            ultimo = ultimo->next;
         }
-        atual = atual->next;
+
+        ultimo->next = inicio2;
+
+        while(atual != NULL){
+            LinkedNode *proximo = atual->next;
+
+            while(proximo != NULL){
+                if(atual->data > proximo->data){
+
+                    int tempData = atual->data;
+                    atual->data = proximo->data;
+                    proximo->data = tempData;
+
+                }
+                proximo = proximo->next;
+            }
+            atual = atual->next;
+        }
+
+        return inicio1;
+
+    }else if(inicio1 != NULL){
+        return inicio1;
+    }else if(inicio2 != NULL){
+        return inicio2;
     }
 
-    return inicio1;
 }
 
 void imprimir(LinkedNode *inicio) {
@@ -54,11 +62,7 @@ int main() {
     LinkedNode *dois = malloc(sizeof(LinkedNode));
     LinkedNode *tres = malloc(sizeof(LinkedNode));
     LinkedNode *quatro = malloc(sizeof(LinkedNode));
-    LinkedNode *cinco = malloc(sizeof(LinkedNode));
-/*
-    cinco->data = 55;
-    cinco->next = NULL;
-*/
+
     quatro->data = 22;
     quatro->next = NULL;
 
@@ -71,7 +75,9 @@ int main() {
     um->data = 11;
     um->next = dois;
 
-    LinkedNode *inicio2 = NULL;
+    LinkedNode *inicio2 = malloc(sizeof(LinkedNode));
+    inicio2->data = 12;
+    inicio2->next = NULL;
 
     imprimir(um);
 
@@ -85,7 +91,7 @@ int main() {
     free(dois);
     free(tres);
     free(quatro);
-    free(cinco);
+    free(inicio2);
 
     return 0;
 }
