@@ -8,7 +8,19 @@ struct LinkedNode {
    LinkedNode *next;
 };
 
-void remover(LinkedNode *inicio, int qtd){
+void imprimir(LinkedNode *inicio) {
+    LinkedNode *atual = inicio;
+
+
+    while (atual != NULL){
+        printf("%s ", &atual->data);
+        atual = atual->next;
+    }
+
+    printf("\n");
+}
+
+LinkedNode *remover(LinkedNode *inicio, int qtd){
     LinkedNode *atual = inicio;
     LinkedNode *remover;
 
@@ -17,11 +29,14 @@ void remover(LinkedNode *inicio, int qtd){
         atual = atual->next;
         free(remover);
     }
+
+    return atual;
 }
 
 LinkedNode *editar_dna(LinkedNode *dna_original, LinkedNode *seq_edicao) {
     LinkedNode *atual = dna_original;
     LinkedNode *anterior = NULL;
+    LinkedNode *primeiro = NULL;
     LinkedNode *edicao = seq_edicao;
 
     int cont = 0;
@@ -52,6 +67,7 @@ LinkedNode *editar_dna(LinkedNode *dna_original, LinkedNode *seq_edicao) {
     }
 
     while(atual->next != NULL){
+
         if(atual->next->data == edicao->data){
             cont++;
 
@@ -61,6 +77,7 @@ LinkedNode *editar_dna(LinkedNode *dna_original, LinkedNode *seq_edicao) {
 
             if(cont == 1){
                 anterior = atual;
+                primeiro = atual->next;
             }
         }else{
             if(edicao != seq_edicao){
@@ -70,42 +87,14 @@ LinkedNode *editar_dna(LinkedNode *dna_original, LinkedNode *seq_edicao) {
         }
 
         if(cont == qtdEdicao){
-            remover(anterior->next, qtdEdicao);
-
-            LinkedNode *temp = atual->next->next;
-
-            //cont = 0;
-            //while(cont < qtdEdicao){
-                //LinkedNode *excluindo =  anterior->next;
-                //anterior->next = excluindo->next;
-
-                //free(excluindo);
-
-               // cont++;
-            //}
-
-            //anterior->next = temp;
-            atual = temp;
-
-            //dna_original = temp;
+            anterior->next = atual->next->next;
+            atual = remover(primeiro, qtdEdicao);
         }
 
         atual = atual->next;
     }
 
     return dna_original;
-}
-
-void imprimir(LinkedNode *inicio) {
-    LinkedNode *atual = inicio;
-
-
-    while (atual != NULL){
-        printf("%s ", &atual->data);
-        atual = atual->next;
-    }
-
-    printf("\n");
 }
 
 int main() {
