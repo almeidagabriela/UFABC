@@ -45,7 +45,7 @@ int pop(PilhaEstatica *pilha, int *item) {
 }
 
 //Liberar memoria: 1º Libera o vetor de itens 2º A estrutura da pilha
-//Verifique com o comando: valgrind ./pilha1.exe
+//Verifique vazamento de memória com o comando: valgrind ./pilha1.exe
 void liberar_pilha(PilhaEstatica *pilha){
     free(pilha->itens);
     free(pilha);
