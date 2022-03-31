@@ -33,10 +33,29 @@ LinkedNode *remover(LinkedNode *inicio, int qtd){
     return atual;
 }
 
+LinkedNode *remover2(LinkedNode *inicio, LinkedNode *ant, int qtd){
+    LinkedNode *anterior = ant;
+    LinkedNode *atual = inicio;
+    int cont = 0;
+
+    if(atual != NULL){
+        if(anterior != NULL){
+            anterior->next = atual->next;
+        }else{
+            //Anterior == null: acontece quando o PRIMEIRO elemento da lista for o que será removido
+            inicio = atual->next;
+        }
+
+        free(atual);
+    }
+
+    return inicio;
+}
+
 LinkedNode *editar_dna(LinkedNode *dna_original, LinkedNode *seq_edicao) {
-    LinkedNode *atual = dna_original;
-    LinkedNode *anterior = NULL;
-    LinkedNode *primeiro = NULL;
+    LinkedNode *esse = dna_original;
+    //LinkedNode *anterior = NULL;
+    //LinkedNode *primeiro = NULL;
     LinkedNode *edicao = seq_edicao;
 
     int cont = 0;
@@ -66,33 +85,7 @@ LinkedNode *editar_dna(LinkedNode *dna_original, LinkedNode *seq_edicao) {
         edicao = seq_edicao;
     }
 
-    while(atual->next != NULL){
-
-        if(atual->next->data == edicao->data){
-            cont++;
-
-            if(edicao->next != NULL){
-                edicao = edicao->next;
-            }
-
-            if(cont == 1){
-                anterior = atual;
-                primeiro = atual->next;
-            }
-        }else{
-            if(edicao != seq_edicao){
-                edicao = seq_edicao;
-            }
-            cont = 0;
-        }
-
-        if(cont == qtdEdicao){
-            anterior->next = atual->next->next;
-            atual = remover(primeiro, qtdEdicao);
-        }
-
-        atual = atual->next;
-    }
+    LinkedNode *atual = remover2(esse, NULL, 3);
 
     return dna_original;
 }

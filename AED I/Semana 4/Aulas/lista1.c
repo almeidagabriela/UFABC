@@ -72,29 +72,7 @@ LinkedNode *inserir_final_r(LinkedNode *inicio, int valor){
 }
 
 LinkedNode *remover(LinkedNode *inicio, int valor){
-    LinkedNode *anterior = NULL;
-    LinkedNode *atual = inicio;
-
-    while (atual != NULL && atual->data != valor){
-        anterior = atual;
-        atual = atual->next;
-    }
-    /* O while terminará quando:
-        - Valor atual = nulo (nesse caso ele percorreu a lista inteira e não encontrou o valor a ser removido)
-        - Valor atual != nulo (nesse caso o valor do atual é o que queremos remover)
-    */
-    if(atual != NULL){
-        if(anterior != NULL){
-            anterior->next = atual->next;
-        }else{
-            //Anterior == null: acontece quando o PRIMEIRO elemento da lista for o que será removido
-            inicio = atual->next;
-        }
-
-        free(atual);
-    }
-
-    return inicio;
+    
 }
 
 LinkedNode *remover_r(LinkedNode *inicio, int valor){
