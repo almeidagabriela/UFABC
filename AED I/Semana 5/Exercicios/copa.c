@@ -5,7 +5,7 @@
 
 typedef struct LinkedNode LinkedNode;
 struct LinkedNode {
-    char data;
+    int data;
     LinkedNode *next;
 };
 
@@ -39,7 +39,7 @@ int push(PilhaDinamica *pilha, int item){
     return 1;
 }
 
-int pop(PilhaDinamica *pilha, char *item){
+int pop(PilhaDinamica *pilha, int *item){
     //Verifica se está vazia
     if(pilha->topo == NULL) return 0;
 
@@ -71,7 +71,7 @@ FilaDinamica *criar_fila() {
     return fila;
 }
 
-int enqueue(FilaDinamica *fila, int item) {
+int enqueue(FilaDinamica *fila, char item) {
     //Inserção no final da fila | Remoção no inicio da fila
     LinkedNode *novo_item = malloc(sizeof(LinkedNode));
 
@@ -126,67 +126,91 @@ void liberar_fila(FilaDinamica *fila) {
 }
 
 int main() {
-    PilhaDinamica *p = criar_pilha();
+    FilaDinamica *f = criar_fila();
+    char ganhador = 'z', primeiro = 'z', segundo = 'z';
 
-    int cont = 0, verifica = 0, parar = 1, i = 0;
-    char texto[200];
+    for(int i = 1; i <= 15; i++){
+        int m, n;
+        scanf("%d %d", &m, &n);
 
-    scanf("%s", texto);
-
-    while(texto[i] != '\0'){
-        if(texto[i] == '(' || texto[i] == '[' || texto[i] == '{'){
-            verifica = 0;
-            push(p, texto[i]);
-        }else if(texto[i] == ')' || texto[i] == ']' || texto[i] == '}'){
+        if(i <= 8){
+            if(m > n){
+                switch (i){
+                    case 1:
+                        ganhador = 'A';
+                        break;
+                    case 2:
+                        ganhador = 'C';
+                        break;
+                    case 3:
+                        ganhador = 'E';
+                        break;
+                    case 4:
+                        ganhador = 'G';
+                        break;
+                    case 5:
+                        ganhador = 'I';
+                        break;
+                    case 6:
+                        ganhador = 'K';
+                        break;
+                    case 7:
+                        ganhador = 'M';
+                        break;
+                    case 8:
+                        ganhador = 'O';
+                        break;
+                }
+                enqueue(f, ganhador);
+            }else{
+                switch (i){
+                    case 1:
+                        ganhador = 'B';
+                        break;
+                    case 2:
+                        ganhador = 'D';
+                        break;
+                    case 3:
+                        ganhador = 'F';
+                        break;
+                    case 4:
+                        ganhador = 'H';
+                        break;
+                    case 5:
+                        ganhador = 'J';
+                        break;
+                    case 6:
+                        ganhador = 'L';
+                        break;
+                    case 7:
+                        ganhador = 'N';
+                        break;
+                    case 8:
+                        ganhador = 'P';
+                        break;
+                }
+                enqueue(f, ganhador);
+            }
+        }else{
             char item = 'a';
-            verifica = 0;
+            dequeue(f, &item);
+            primeiro = item;
+            dequeue(f, &item);
+            segundo = item;
 
-            if(p->topo != NULL){
-                pop(p, &item);
-            }
-
-            switch(item){
-                case '(':
-                    if(texto[i] == ')'){
-                        verifica = 1;
-                    }else{
-                        verifica = 0;
-                    }
-                    break;
-                case '[':
-                    if(texto[i] == ']'){
-                        verifica = 1;
-                    }else{
-                        verifica = 0;
-                    }
-                    break;
-                case '{':
-                    if(texto[i] == '}'){
-                        verifica = 1;
-                    }else{
-                        verifica = 0;
-                    }
-                    break;
-            }
-
-            if(verifica == 0){
-                texto[i] = '\0';
+            if(m > n){
+                enqueue(f, primeiro);
+            }else{
+                enqueue(f, segundo);
             }
         }
-        i++;
     }
 
-    if(p->topo != NULL){
-        verifica = 0;
-    }
+    char item = 'a';
+    dequeue(f, &item);
+    liberar_fila(f);
 
-    liberar_pilha(p);
-
-    if(verifica == 0){
-        printf("NAO");
-    }else{
-        printf("SIM");
-    }
+    printf("%s", &item);
 
     return 0;
 }
