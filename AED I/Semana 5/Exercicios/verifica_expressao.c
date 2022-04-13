@@ -128,7 +128,7 @@ void liberar_fila(FilaDinamica *fila) {
 int main() {
     PilhaDinamica *p = criar_pilha();
 
-    int cont = 0, verifica = 0, parar = 1, i = 0;
+    int cont = 0, verifica = 0, i = 0;
     char texto[200];
 
     scanf("%s", texto);
