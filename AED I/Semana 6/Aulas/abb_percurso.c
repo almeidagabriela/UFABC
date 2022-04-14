@@ -116,6 +116,15 @@ void percurso_posordem(NoArvore *raiz) {
     printf("%d ", raiz->chave);
 }
 
+void liberar_arvore(NoArvore *raiz) {
+    // Caso base: raiz nula
+    if (raiz == NULL) return;
+
+    liberar_arvore(raiz->esq);
+    liberar_arvore(raiz->dir);
+    free(raiz);
+}
+
 int main() {
 
     //Arvore
@@ -147,6 +156,8 @@ int main() {
     imprimir(tree, 0);
     printf("\n");
     */
+
+    liberar_arvore(tree);
 
     return 0;
 }
