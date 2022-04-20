@@ -30,7 +30,7 @@ public class Sender {
 				if(status.equals("lenta")) {
 					Thread.sleep(15000); // Envio com atraso de 15 segundos
 				}else if(status.equals("perda")) {
-					Thread.sleep(31000); // Perda do pacote
+					Thread.sleep(61000); // Perda do pacote
 				}else if(status.equals("duplicada")) {
 					msg.send(info, IPAddress, 4445); // Envio duplicado
 				}
