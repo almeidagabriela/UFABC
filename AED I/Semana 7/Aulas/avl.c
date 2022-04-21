@@ -224,21 +224,21 @@ int main() {
     //Arvore
     NoArvore *tree = NULL;
 
+/*
     for(int i = 0; i < 100000; i++){
         tree = inserir(tree, i);
     }
 
     int h = altura(tree);
     printf("h = %d\n", h);
+*/
 
-/*
-    tree = inserir(tree, 30);
+
+    tree = inserir(tree, 8);
+    tree = inserir(tree, 16);
     tree = inserir(tree, 20);
-    tree = inserir(tree, 60);
     tree = inserir(tree, 10);
-    tree = inserir(tree, 50);
-    tree = inserir(tree, 70);
-    tree = inserir(tree, 55);
+    tree = inserir(tree, 15);
 
     imprimir(tree, 0);
     printf("\n----------------------------\n");
@@ -247,7 +247,7 @@ int main() {
 
     imprimir(tree, 0);
     printf("\n----------------------------\n");
-*/
+
     liberar_arvore(tree);
 
     return 0;
